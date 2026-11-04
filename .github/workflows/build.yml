@@ -1,0 +1,26 @@
+name: build
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: make
+      - run: mv hmlangwng hmlangwng-linux-${{ matrix.arch }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: hmlangwng-linux-${{ matrix.arch }}
