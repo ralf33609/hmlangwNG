@@ -1,0 +1,6 @@
+# Build-Artefakte
+*.o
+hmlangwng
+
+# Laufzeitdaten
+serialnumber.txt
