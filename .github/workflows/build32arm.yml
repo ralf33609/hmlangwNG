@@ -1,0 +1,34 @@
+name: Build HMLANGW for Raspberry Pi Zero W
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-pi-zero-w:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm/v6
+
+      - name: Build inside ARMv6 container
+        uses: addnab/docker-run-action@v3
+        with:
+          image: debian:bookworm-slim
+          options: --platform linux/arm/v6 -v ${{ github.workspace }}:/workspace -w /workspace
+          run: |
+            apt-get update
+            apt-get install -y --no-install-recommends build-essential libgpiod-dev
+            make
+
+      - name: Upload compiled binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: hmlangw-pi-zero-w-armv6
+          path: hmlangw
