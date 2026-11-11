@@ -17,11 +17,11 @@ jobs:
         with:
           platforms: arm/v6
 
-      - name: Build inside ARMv6 container
+      - name: Build inside ARMv6 Raspberry Pi container
         uses: addnab/docker-run-action@v3
         with:
-          image: debian:bookworm-slim
-          options: --platform linux/arm/v6 -v ${{ github.workspace }}:/workspace -w /workspace
+          image: balenalib/raspberry-pi-debian:bookworm
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
           run: |
             apt-get update
             apt-get install -y --no-install-recommends build-essential libgpiod-dev
