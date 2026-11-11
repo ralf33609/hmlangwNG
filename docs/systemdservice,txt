@@ -1,0 +1,18 @@
+# als systemd service binary starten
+# erste ungetestete version
+# sudo nano /etc/systemd/system/hmlangwng.service
+# execstart ist noch fehlerhaft
+
+[Unit]
+Description=HomeMatic LAN Gateway Daemon (hmlangwng)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/hmlangwng -s /dev/ttyAMA0 -r 18
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
