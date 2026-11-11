@@ -1,7 +1,7 @@
 # als systemd service binary starten
 # erste ungetestete version
 # sudo nano /etc/systemd/system/hmlangwng.service
-# execstart ist noch fehlerhaft
+# execstart ist noch fehlerhaft siehe readme.md
 
 [Unit]
 Description=HomeMatic LAN Gateway Daemon (hmlangwng)
